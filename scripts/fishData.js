@@ -152,21 +152,21 @@ export const database = {
   ],
 };
 
-// Functions to filter fish
+// Filter fish
 export const mostHolyFish = () => {
-  // Fish with lengths that are multiples of 3
+  //lengths that are multiples of 3
   const holyFish = fishData.filter((fish) => fish.length % 3 === 0);
   return holyFish;
 };
 
 export const soldierFish = () => {
-  // Fish with lengths that are multiples of 5
+  //lengths that are multiples of 5
   const soldierFish = fishData.filter((fish) => fish.length % 5 === 0);
   return soldierFish;
 };
 
 export const regularFish = () => {
-  // Fish with lengths that are not multiples of 3 or 5
+  //lengths that are not multiples of 3 or 5
   const regularFish = fishData.filter(
     (fish) => fish.length % 3 !== 0 && fish.length % 5 !== 0
   );

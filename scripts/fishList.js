@@ -5,50 +5,38 @@ export const fishList = () => {
   let fishHTML = "";
 
   for (const fish of fishes) {
-    fishHTML += `
-            <div class="fish-card">
-                <img src="${fish.image}" alt="${fish.name}">
-                <h3>${fish.name}</h3>
-                <p>Species: ${fish.species}</p>
-                <p>Length: ${fish.length} inches</p>
-                <p>Location: ${fish.location}</p>
-                <p>Diet: ${fish.diet}</p>
-            </div>
-        `;
+    fishHTML += generateFishCardHTML(fish);
   }
 
-  fishHTML += `</div>`;
   return fishHTML;
 };
 
+export const filterFish = (criteria) => {
+  const filteredFish = database.fish.filter(criteria);
+  return filteredFish.map(generateFishCardHTML).join("");
+};
+
+const generateFishCardHTML = (fish) => {
+  return `
+    <div class="fish-card">
+        <img src="${fish.image}" alt="${fish.name}">
+        <h3>${fish.name}</h3>
+        <p>Species: ${fish.species}</p>
+        <p>Length: ${fish.length} inches</p>
+        <p>Location: ${fish.location}</p>
+        <p>Diet: ${fish.diet}</p>
+    </div>
+  `;
+};
+
 export const mostHolyFish = () => {
-  const holyFish = database.fish.filter((fish) => fish.length % 3 === 0);
-  return holyFish
-    .map(
-      (fish) =>
-        `<div class="fish-card"><h3>${fish.name}</h3><img src="${fish.image}" alt="${fish.name}"><p>Species: ${fish.species}</p><p>Length: ${fish.length}</p><p>Location: ${fish.location}</p><p>Diet: ${fish.diet}</p></div>`
-    )
-    .join("");
+  return filterFish((fish) => fish.length % 3 === 0);
 };
 
 export const soldierFish = () => {
-  const soldierFish = database.fish.filter((fish) => fish.length % 5 === 0);
-  return soldierFish
-    .map(
-      (fish) =>
-        `<div class="fish-card"><h3>${fish.name}</h3><img src="${fish.image}" alt="${fish.name}"><p>Species: ${fish.species}</p><p>Length: ${fish.length}</p><p>Location: ${fish.location}</p><p>Diet: ${fish.diet}</p></div>`
-    )
-    .join("");
+  return filterFish((fish) => fish.length % 5 === 0);
 };
 
 export const regularFish = () => {
-  const regularFish = database.fish.filter(
-    (fish) => fish.length % 3 !== 0 && fish.length % 5 !== 0
-  );
-  return regularFish
-    .map(
-      (fish) =>
-        `<div class="fish-card"><h3>${fish.name}</h3><img src="${fish.image}" alt="${fish.name}"><p>Species: ${fish.species}</p><p>Length: ${fish.length}</p><p>Location: ${fish.location}</p><p>Diet: ${fish.diet}</p></div>`
-    )
-    .join("");
+  return filterFish((fish) => fish.length % 3 !== 0 && fish.length % 5 !== 0);
 };
